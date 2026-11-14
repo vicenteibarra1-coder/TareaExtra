@@ -1,0 +1,10 @@
+# Estación del atacante: trae las herramientas del curso ya instaladas,
+# para que el estudiante no pelee con su entorno (Scapy, tcpdump, etc.).
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        tcpdump iproute2 iputils-ping traceroute curl dnsutils net-tools procps \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir scapy
+WORKDIR /root
+# Se queda vivo para que el estudiante entre con: docker exec -it atacante bash
+CMD ["sleep", "infinity"]
